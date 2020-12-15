@@ -5,7 +5,6 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-from tensorflow import keras
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
@@ -37,6 +36,7 @@ def create_dataset():
             data .append([img, class_num])
 
 create_dataset()
+random.shuffle(data)
 print(f'\nData Len: {len(data)}')
 
 x = []

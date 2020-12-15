@@ -5,7 +5,6 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-from tensorflow import keras
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
@@ -38,7 +37,8 @@ class Train_Model():
                 img = cv2.resize(img_og, (self.IMG_SIZE, self.IMG_SIZE))
 
                 self.data .append([img, class_num])
-
+            
+        random.shuffle(self.data)
         return f'\nData Len: {len(self.data)}'
 
 
