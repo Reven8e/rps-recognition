@@ -1,6 +1,6 @@
-# rps- recognition
+# Rock Paper Scissors Image Recognition
 
-- Machine learning that can recognize Rock, Paper and Scissors. (Currently Rock and Scissors)
+- Machine Learning that can recognize Rock, Paper and Scissors. (Currently Rock and Scissors)
 
 
 - app.py- Original
@@ -12,5 +12,9 @@
 - Download dataset- https://mega.nz/file/V4UU0DzB#cX6-BHEkUXsZwSKGpPTd_-gOgmJ3kHOzgmKX2cdKi-4
 
 
+
+### Showcase
+
+![alt text](https://www.bogan.cool/api/uploads/show/1)
 
 ### Please inform me if you find any erro/s! Thanks :)
