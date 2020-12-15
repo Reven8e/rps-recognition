@@ -13,8 +13,4 @@
 
 
 
-### Showcase
-
-![alt text](https://www.bogan.cool/api/uploads/show/1)
-
 ### Please inform me if you find any erro/s! Thanks :)
