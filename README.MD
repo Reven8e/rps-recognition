@@ -1,4 +1,4 @@
-# rps- recognition
+# Rock Paper Scissors Image Recognition (Tensorflow Machine Learning)
 
 - Machine learning that can recognize Rock, Paper and Scissors. (Currently Rock and Scissors)
 
@@ -13,4 +13,4 @@
 
 
 
-### Please inform me if you find any error/s! Thanks :)
+### Please inform me if you find any erro/s! Thanks :)
