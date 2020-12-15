@@ -13,4 +13,4 @@
 
 
 
-### Please inform me if you find any erro/s! Thanks :)
+### Please inform me if you find any error/s! Thanks :)
