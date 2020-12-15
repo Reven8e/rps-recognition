@@ -1,6 +1,6 @@
-# Rock Paper Scissors Image Recognition (Tensorflow Machine Learning)
+# Rock Paper Scissors Image Recognition
 
-- Machine learning that can recognize Rock, Paper and Scissors. (Currently Rock and Scissors)
+- Machine Learning that can recognize Rock, Paper and Scissors. (Currently Rock and Scissors)
 
 
 - app.py- Original
