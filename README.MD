@@ -1,6 +1,6 @@
 # Rock Paper Scissors Image Recognition
 
-- Machine Learning that can recognize Rock, Paper and Scissors. (Currently Rock and Scissors)
+- Machine Learning that can recognize Rock, Paper and Scissors.
 
 
 - app.py- Original
