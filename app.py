@@ -1,17 +1,28 @@
 # © RPS Machine learning- Made by Yuval Simon. For www.bogan.cool
 
 import os, random, cv2
-import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
+from tensorflow.keras.layers import Dense, Activation, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
 
 DIR = "dataset"
-CATEGORIES = ['scissors' ,'rock']
+CATEGORIES = ['scissors' ,'rock', 'paper']
 IMG_SIZE = 64
+
+
+def make(img):
+    global IMG_SIZE, img1
+    try:
+        img_array = cv2.imread(img)
+        img_og = cv2.cvtColor(img_array, cv2.COLOR_BGR2RGB)
+        img1 = cv2.resize(img_og, (IMG_SIZE, IMG_SIZE))
+        return img1.reshape(-3, 64, 64, 3)
+    except cv2.error:
+        print('Image Preparing Error. (Image/s not found)')
+        os._exit(0)
 
 
 data = []
@@ -25,8 +36,8 @@ def create_dataset():
         elif cat == 'rock':
             class_num = 1
         
-        # elif cat == 'paper':
-        #     class_num = 2
+        elif cat == 'paper':
+            class_num = 2
 
         for i in tqdm(os.listdir(path)):
             img_array = cv2.imread(os.path.join(path, i))
@@ -63,20 +74,19 @@ if option == '1':
 
     model.add(Conv2D(256, (3, 3), input_shape=x.shape[1:]))
     model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(MaxPooling2D(pool_size=(3, 3)))
 
     model.add(Conv2D(256, (3, 3)))
     model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(MaxPooling2D(pool_size=(3, 3)))
 
     model.add(Flatten()) 
 
     model.add(Dense(64))
 
-    model.add(Dense(1))
-    model.add(Activation('sigmoid'))
+    model.add(Dense(3, activation='softmax'))
 
-    model.compile(loss='binary_crossentropy',
+    model.compile(loss='sparse_categorical_crossentropy',
                 optimizer='adam',
                 metrics=['accuracy'])
 
@@ -90,31 +100,16 @@ elif option == '2':
 
     model = load_model("rps.h5")
 
-    def make(img):
-        global IMG_SIZE, img1
-        try:
-            img_array = cv2.imread(img)
-            img_og = cv2.cvtColor(img_array, cv2.COLOR_BGR2RGB)
-            img1 = cv2.resize(img_og, (IMG_SIZE, IMG_SIZE))
-            return img1.reshape(-3, 64, 64, 3)
-        except cv2.error:
-            print('Image Preparing Error. (Image/s not found)')
-            os._exit(0)
 
-try:
-    path = input('Please specify dir path to the image/s: ')
-    for i in os.listdir(path):
-        pred = model.predict([make(f'{path}/{i}')])
-        if 0 in pred:
-            obj = 'Scissors'
-        elif 1 in pred:
-            obj = 'Rock'
-        else:
-            obj = 'IDK'
-        plt.imshow(img1, cmap=plt.cm.binary)
-        plt.title(obj, fontsize= 18)
-        plt.show()
-except FileNotFoundError:
-    print('no directory or image/s found.')
-    os._exit(0)
-            
+    try:
+        path = input('Please specify dir path to the image/s: ')
+        for i in os.listdir(path):
+            pred = model.predict([make(f'{path}/{i}')])
+            obj = CATEGORIES[np.argmax(pred)]
+
+            plt.imshow(img1, cmap=plt.cm.binary)
+            plt.title(obj, fontsize= 18)
+            plt.show()
+    except FileNotFoundError:
+        print('no directory or image/s found.')
+        os._exit(0)

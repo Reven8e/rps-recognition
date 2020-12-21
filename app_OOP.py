@@ -1,18 +1,17 @@
 # © RPS Machine learning- Made by Yuval Simon. For www.bogan.cool
 
 import os, random, cv2
-import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
+from tensorflow.keras.layers import Dense, Activation, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
 
 class Train_Model():
     def __init__(self):
         self.DIR = "dataset"
-        self.CATEGORIES = ['scissors' ,'rock']
+        self.CATEGORIES = ['Scissors' ,'Rock', 'Paper']
         self.IMG_SIZE = 64
         self.data = []
         self.x = []
@@ -71,10 +70,9 @@ class Train_Model():
 
         model.add(Dense(64))
 
-        model.add(Dense(1))
-        model.add(Activation('sigmoid'))
+        model.add(Dense(3, activation='softmax'))
 
-        model.compile(loss='binary_crossentropy',
+        model.compile(loss='sparse_categorical_crossentropy',
                     optimizer='adam',
                     metrics=['accuracy'])
 
@@ -89,6 +87,7 @@ class Test_Model():
         from keras.models import load_model
         self.model = load_model("rps.h5")
         self.IMG_SIZE = 64
+        self.CATEGORIES = ['Scissors' ,'Rock', 'Paper']
 
 
     def make(self, img):
@@ -108,12 +107,8 @@ class Test_Model():
             path = input('Please specify dir path to the image/s: ')
             for i in os.listdir(path):
                 pred = self.model.predict([self.make(f'{path}/{i}')])
-                if 0 in pred:
-                    obj = 'Scissors'
-                elif 1 in pred:
-                    obj = 'Rock'
-                else:
-                    obj = 'IDK'
+                obj = self.CATEGORIES[np.argmax(pred)]
+
                 plt.imshow(img1, cmap=plt.cm.binary)
                 plt.title(obj, fontsize= 18)
                 plt.show()
