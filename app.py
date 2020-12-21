@@ -9,7 +9,7 @@ from tensorflow.keras.layers import Dense, Activation, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
 
 DIR = "dataset"
-CATEGORIES = ['scissors' ,'rock', 'paper']
+CATEGORIES = ['Scissors' ,'Rock', 'Paper']
 IMG_SIZE = 64
 
 
@@ -30,13 +30,13 @@ data = []
 def create_dataset():
     for cat in CATEGORIES:
         path = os.path.join(DIR, cat)
-        if cat == 'scissors':
+        if cat == 'Scissors':
             class_num = 0
 
-        elif cat == 'rock':
+        elif cat == 'Rock':
             class_num = 1
         
-        elif cat == 'paper':
+        elif cat == 'Paper':
             class_num = 2
 
         for i in tqdm(os.listdir(path)):
@@ -105,6 +105,7 @@ elif option == '2':
         path = input('Please specify dir path to the image/s: ')
         for i in os.listdir(path):
             pred = model.predict([make(f'{path}/{i}')])
+            print(pred)
             obj = CATEGORIES[np.argmax(pred)]
 
             plt.imshow(img1, cmap=plt.cm.binary)

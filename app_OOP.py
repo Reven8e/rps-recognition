@@ -21,14 +21,14 @@ class Train_Model():
     def create_dataset(self):
         for cat in self.CATEGORIES:
             path = os.path.join(self.DIR, cat)
-            if cat == 'scissors':
+            if cat == 'Scissors':
                 class_num = 0
 
-            elif cat == 'rock':
+            elif cat == 'Rock':
                 class_num = 1
             
-            # elif cat == 'paper':
-            #     class_num = 2
+            elif cat == 'Paper':
+                class_num = 2
 
             for i in tqdm(os.listdir(path)):
                 img_array = cv2.imread(os.path.join(path, i))
